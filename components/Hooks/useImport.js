@@ -48,12 +48,17 @@ export default function useImport() {
         const promises = batchData.map(async (row) => {
           setCurrentRow(processedRows);
 
+
           try {
-            const [seller, customer, product] = await Promise.all([
+            const [seller, customer, item] = await Promise.all([
               sellers.importSeller(row.sellerCode, row.seller),
               customers.importCustomer(row.customer),
               products.importProduct(row.productCode, row.product),
             ]);
+
+            console.log("seller", seller);
+            console.log("customer", customer);
+            console.log("product", row.productCode, row.product);
 
             const sale = await sales.create(
               row.invoice,
@@ -64,7 +69,7 @@ export default function useImport() {
               row.total_return,
               row.total_sale,
               row.total,
-              product.id,
+              item.id,
               customer.id,
               seller.id,
               date,

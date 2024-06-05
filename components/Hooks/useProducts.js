@@ -30,6 +30,7 @@ export default function useProducts() {
         try {
             const product = await products.create(code, name, 1001);
             return product;
+            
         } catch (error) {
             const existingProduct = await products.findOneByName(name);
             if (existingProduct) {
