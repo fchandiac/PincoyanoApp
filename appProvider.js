@@ -3,6 +3,8 @@ import React, { useReducer, createContext, useContext } from "react";
 const AppContext = createContext();
 const useAppContext = () => useContext(AppContext);
 
+// test
+
 const initialState = {
   snack: { open: false, message: "", type: "error" },
   pageTitle: "",
