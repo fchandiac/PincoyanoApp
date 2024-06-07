@@ -432,10 +432,10 @@ export default function useSales() {
   };
 
   const dashBoardTopQuanty = async (start, end) => {
-    const sales_ = await sales.findAllbetweenDate(start, end);
-    const data = calculateProductSalesByQuantity(sales_);
+    const sales_ = await sales.findDashBoardTopQuanty(start, end);
+    // const data = calculateProductSalesByQuantity(sales_);
 
-    return data;
+    return sales_;
   };
 
   const dashBoardTopAmount = async (start, end) => {

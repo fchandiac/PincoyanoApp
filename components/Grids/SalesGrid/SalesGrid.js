@@ -41,17 +41,6 @@ export default function SalesGrid() {
     { field: "productName", headerName: "Producto", flex: 1.2 },
     { field: "quanty", headerName: "Cantidad", flex: 0.6 },
     { field: "discount", headerName: "Descuento", flex: 0.8 },
-    {
-      field: "price",
-      headerName: "Precio",
-      flex: 0.8,
-      valueFormatter: (params) =>
-        params.value.toLocaleString("es-CL", {
-          style: "currency",
-          currency: "CLP",
-          minimumFractionDigits: 0,
-        }),
-    },
     { field: "total_sale", headerName: "Total Venta", flex: 0.8 },
     { field: "total_return", headerName: "Total Devolución", flex: 1 },
     {

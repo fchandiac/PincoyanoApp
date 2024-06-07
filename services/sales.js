@@ -543,6 +543,31 @@ function salesToChartBetweenDate(start, end) {
 
 }
 
+// function findDashBoardTopQuanty(start, end)
+
+function findDashBoardTopQuanty(start, end) {
+    let data = { start, end }
+    const sale_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'sales/findDashBoardTopQuanty', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res)
+                } else {
+                    resolve(res)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return sale_
+
+}
+
 
 export { 
     create, 
@@ -568,7 +593,8 @@ export {
     destroyAllByFile,
     findAllBetweenDateToDataGrid,
     totalUnitsBetweenDate,
-    salesToChartBetweenDate
+    salesToChartBetweenDate,
+    findDashBoardTopQuanty
    
 
 }

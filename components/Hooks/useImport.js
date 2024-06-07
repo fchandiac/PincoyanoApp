@@ -60,6 +60,12 @@ export default function useImport() {
             console.log("customer", customer);
             console.log("product", row.productCode, row.product);
 
+            let productId = 10001001
+
+            if (item) {
+              productId = item.id;
+            } 
+
             const sale = await sales.create(
               row.invoice,
               row.quanty,
@@ -69,7 +75,7 @@ export default function useImport() {
               row.total_return,
               row.total_sale,
               row.total,
-              item.id,
+              productId,
               customer.id,
               seller.id,
               date,

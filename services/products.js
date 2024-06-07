@@ -89,9 +89,36 @@ function update(id, code, name, subcategory_id) {
     return product_
 }
 
+
+
+//findOneByCode(code)
+
+function findOneByCode(code) {
+    let data = { code }
+    const product_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'products/findOneByCode', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res.data)
+                } else {
+                    resolve(res.data)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return product_
+}
+
 export {
     create,
     findAll,
     findOneByName,
-    update
+    update,
+    findOneByCode
 }

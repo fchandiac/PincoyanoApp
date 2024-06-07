@@ -69,9 +69,13 @@ export default function Home() {
       setTopProductsAmount(topProductsAmount_)
 
       const topProductsUnits_ = await sales.dashBoardTopQuanty(startDate, endDate)
+      console.log('uniyts', topProductsUnits_)
 
-      setTopProductsUnits(topProductsUnits_)
+      setTopProductsUnits(topProductsUnits_.data)
+
+
       const topSellers_ = await sales.dashBoardTopSellers(startDate, endDate)
+
       setTopSellers(topSellers_)
 
      
