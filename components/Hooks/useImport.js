@@ -60,7 +60,7 @@ export default function useImport() {
             console.log("customer", customer);
             console.log("product", row.productCode, row.product);
 
-            let productId = 10001001
+            let productId = 1001;
 
             if (item) {
               productId = item.id;

@@ -72,19 +72,12 @@ const importProduct = async (code, name) => {
     else {
         try {
             const product = await products.create(code, name, 1001);
-            if (product) {
-                console.log("Product created:", product);
-                return product;
-            } else {
-                const errorProduct = await products.findOneByCode(10001001)
-                console.log("Product not Created");
-                return errorProduct;
-            }
-
+            return product;
           
         } catch (error) {
             console.error("Error creating product:", error);
-            return null;
+            const errorProduct = await products.findOneByCode(10001001)
+            return errorProduct;
         }
     }
 }
