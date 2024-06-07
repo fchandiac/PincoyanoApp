@@ -353,53 +353,51 @@ export default function useSales() {
   };
 
   const findAllbetweenDateToGrid = async (start, end) => {
-    const sales_ = await sales.findAllbetweenDate(start, end);
+    const sales_ = await sales.findAllBetweenDateToDataGrid(start, end);
     console.log("sales_", sales_);
-    const toGrid = sales_.map((sale) => ({
-      id: sale.id,
-      sellerName: sale.Seller == null ? "" : sale.Seller.name,
-      customerName: sale.Customer == null ? "" : sale.Customer.name,
-      productName: sale.Product == null ? "" : sale.Product.name,
-      quanty: sale.quanty,
-      discount: sale.discount,
-      price: sale.price,
-      total_sale: sale.total_sale,
-      total_return: sale.total_return,
-      total: sale.total,
-      return_: sale.return_,
-      product_id: sale.product_id,
-      customer_id: sale.customer_id,
-      seller_id: sale.seller_id,
-      date: sale.date,
-      fileName: sale.File == null ? "" : sale.File.name,
-    }));
+    // const toGrid = sales_.map((sale) => ({
+    //   id: sale.id,
+    //   sellerName: sale.Seller == null ? "" : sale.Seller.name,
+    //   customerName: sale.Customer == null ? "" : sale.Customer.name,
+    //   productName: sale.Product == null ? "" : sale.Product.name,
+    //   quanty: sale.quanty,
+    //   discount: sale.discount,
+    //   price: sale.price,
+    //   total_sale: sale.total_sale,
+    //   total_return: sale.total_return,
+    //   total: sale.total,
+    //   return_: sale.return_,
+    //   product_id: sale.product_id,
+    //   customer_id: sale.customer_id,
+    //   seller_id: sale.seller_id,
+    //   date: sale.date,
+    //   fileName: sale.File == null ? "" : sale.File.nsame,
+    // }));
 
-    return toGrid;
+    return sales_;
   };
 
-  const totalSalesBetweenDate = async (start, end) => {
-    const sales_ = await sales.findAllbetweenDate(start, end);
-    const total = sales_.reduce((acc, item) => acc + item.total, 0);
-    return total;
-  };
+
 
   const totalUnitsBetweenDate = async (start, end) => {
-    const sales_ = await sales.findAllbetweenDate(start, end);
-    const total = sales_.reduce((acc, item) => acc + item.quanty, 0);
+    const total = await sales.totalUnitsBetweenDate(start, end);
     return total;
   };
 
   const salesToChartBetweenDate = async (start, end) => {
-    const sales_ = await sales.findAllbetweenDate(start, end);
+    // const sales_ = await sales.findAllbetweenDate(start, end);
 
-    const data = sales_.map((sale) => ({
-      day: moment(sale.date).format("DD-MM-YYYY"),
-      sales: sale.total,
-    }));
+    // const data = sales_.map((sale) => ({
+    //   day: moment(sale.date).format("DD-MM-YYYY"),
+    //   sales: sale.total,
+    // }));
 
-    const salesByDay = groupSalesByDay(data);
+    // const salesByDay = groupSalesByDay(data);
 
-    return salesByDay;
+    // return salesByDay;
+
+    const sales_ = await sales.salesToChartBetweenDate(start, end);
+    return sales_.data;
   };
 
   function groupSalesByDay(salesArray) {
@@ -581,6 +579,17 @@ export default function useSales() {
     return sale;
   }
 
+   //function totalSalesBetweenDate(start, end) 
+
+   const totalSalesBetweenDate = async (start, end) => {
+    const total = await sales.totalSalesBetweenDate(start, end);
+
+
+    
+    return total;
+   }
+
+
   return {
     create,
     findAll,
@@ -604,6 +613,7 @@ export default function useSales() {
     productReport,
     customerReport,
     destroy,
-    destroyAllByFile
+    destroyAllByFile,
+    totalSalesByProductBetweenDates,
   };
 }

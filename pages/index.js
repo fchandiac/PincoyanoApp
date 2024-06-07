@@ -45,24 +45,36 @@ export default function Home() {
 
   useEffect(() => {
     const fetch = async () => {
-      const sales_ = await sales.salesToChartBetweenDate(startDate, endDate)
-      setSalesToChart(sales_)
+
       const totalSalesAmount_ = await sales.totalSalesBetweenDate(startDate, endDate)
       setTotalSalesAmount(totalSalesAmount_)
-      const totalSalesQuanty_ = await sales.totalUnitsBetweenDate(startDate, endDate)
+
+       const totalSalesQuanty_ = await sales.totalUnitsBetweenDate(startDate, endDate)
       setTotalSalesQuanty(totalSalesQuanty_)
-      const topProductsAmount_ = await sales.dashBoardTopAmount(startDate, endDate)
-      setTopProductsAmount(topProductsAmount_)
-      const topProductsUnits_ = await sales.dashBoardTopQuanty(startDate, endDate)
-      setTopProductsUnits(topProductsUnits_)
-      const topSellers_ = await sales.dashBoardTopSellers(startDate, endDate)
-      setTopSellers(topSellers_)
-      const categoryChartData_ = await sales.findAllGroupByCategoryBetweenDates(startDate, endDate)
+
+      const sales_ = await sales.salesToChartBetweenDate(startDate, endDate)
+
+      setSalesToChart(sales_)
+
+
+       const categoryChartData_ = await sales.findAllGroupByCategoryBetweenDates(startDate, endDate)
       const fomattedCategoryChartData = categoryChartData_.map((item) => ({
         categoryName: item.category_name,
         amount: item.total_sales
       }))
       setCategoryChartData(fomattedCategoryChartData)
+     
+     
+      const topProductsAmount_ = await sales.dashBoardTopAmount(startDate, endDate)
+      setTopProductsAmount(topProductsAmount_)
+
+      const topProductsUnits_ = await sales.dashBoardTopQuanty(startDate, endDate)
+
+      setTopProductsUnits(topProductsUnits_)
+      const topSellers_ = await sales.dashBoardTopSellers(startDate, endDate)
+      setTopSellers(topSellers_)
+
+     
     
     }
     fetch()
@@ -97,10 +109,10 @@ export default function Home() {
               <TopPieChart title={'Top 10 vendedores'} data={topSellers} />
             </Grid>
             <Grid item xs={4}>
-              <TopPieChart title={'Top 10 unidades'} data={topProductsAmount}/>
+              <TopPieChart title={'Top 10 monto'} data={topProductsAmount}/>
             </Grid>
             <Grid item xs={4}>
-              <TopPieChart title={'Top 10  monto'} data={topProductsUnits}/>
+              <TopPieChart title={'Top 10  unidades'} data={topProductsUnits}/>
             </Grid>
           </Grid>
         </Grid>

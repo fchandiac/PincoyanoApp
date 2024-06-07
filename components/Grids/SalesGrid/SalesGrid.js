@@ -24,8 +24,11 @@ export default function SalesGrid() {
         startDate,
         endDate
       );
-      setSalesList(salesList_);
-      setTotalSales(salesList_.reduce((acc, curr) => acc + curr.total, 0));
+      setSalesList(salesList_.data);
+
+      const total = await sales.totalSalesBetweenDate(startDate, endDate);
+      setTotalSales(total);
+    
     };
     fetch();
   }, [startDate, endDate]);

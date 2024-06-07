@@ -467,6 +467,81 @@ function destroyAllByFile(file_id) {
     return sale_
 }
 
+function findAllBetweenDateToDataGrid(start, end){
+    let data = { start, end }
+    const sale_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'sales/findAllBetweenDateToDataGrid', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res)
+                } else {
+                    resolve(res)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return sale_
+
+}
+
+  //  function totalSalesBetweenDate(start, end) 
+
+ 
+//function totalUnitsBetweenDate(start, end)
+
+function totalUnitsBetweenDate(start, end) {
+    let data = { start, end }
+    const sale_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'sales/totalUnitsBetweenDate', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res.data)
+                } else {
+                    resolve(res.data)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return sale_
+    
+}
+
+//  function salesToChartBetweenDate(start, end)
+
+function salesToChartBetweenDate(start, end) {
+    let data = { start, end }
+    const sale_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'sales/salesToChartBetweenDate', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res)
+                } else {
+                    resolve(res)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return sale_
+
+}
 
 
 export { 
@@ -490,5 +565,10 @@ export {
     findAllByCustomerBetweenDateGroupByDate,
     findAllByCustomerBetweenDateGroupByCategory,
     destroy,
-    destroyAllByFile
+    destroyAllByFile,
+    findAllBetweenDateToDataGrid,
+    totalUnitsBetweenDate,
+    salesToChartBetweenDate
+   
+
 }
