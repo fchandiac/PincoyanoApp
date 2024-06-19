@@ -115,11 +115,13 @@ export default function SalesGrid() {
         setGridApiRef={setGridApiRef}
         info={
           "Ventas totales del periodo: " +
-          totalSales.toLocaleString("es-CL", {
+         (
+          typeof totalSales === "number"? totalSales.toLocaleString("es-CL", {
             style: "currency",
             currency: "CLP",
             minimumFractionDigits: 0,
-          })
+          }):0
+         )
         }
       />
 
