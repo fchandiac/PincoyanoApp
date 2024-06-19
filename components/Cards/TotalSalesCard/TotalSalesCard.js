@@ -19,7 +19,11 @@ export default function TotalSalesCard(props) {
         </Box>
         <Box>
           <Typography variant={"h5"} textAlign={"right"}>
-            {amount == undefined ? "amount" : utils.renderMoneystr(amount)}
+            {amount == undefined ? "$0" : amount.toLocaleString("es-CL", {
+          style: "currency",
+          currency: "CLP",
+          minimumFractionDigits: 0,
+        })}
           </Typography>
         </Box>
         <Box>

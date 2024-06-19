@@ -66,4 +66,26 @@ function findByName(name) {
     return seller_
 }
 
-export { create, findAll, findByName }
+function findByCode(code){
+    let data = { code }
+    const seller_ = new Promise((resolve, reject) => {
+        fetch(server_url + 'sellers/findByCode', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            res.json().then(res => {
+                if (res.code === 0) {
+                    reject(res.data)
+                } else {
+                    resolve(res.data)
+                }
+            })
+        }).catch(err => {
+            reject(err)
+        })
+    })
+    return seller_
+}
+
+export { create, findAll, findByName, findByCode }

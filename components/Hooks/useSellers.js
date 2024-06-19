@@ -43,21 +43,83 @@ export default function useSellers() {
         return seller
     }
 
-    const importSeller = async (code, name) => {
-        try {
-            const seller = await sellers.create(code, name);
-            // console.log('Newseller', seller);
-            return seller;
-        } catch (error) {
-            const existingSeller = await sellers.findByName(name);
-            if (existingSeller) {
-                // console.log('ExistingSeller', existingSeller);
-                return existingSeller;
+    const findByCode = async (code) => {
+        const seller = await sellers.findByCode(code)
+        return seller
+    }
+
+    const ifSellerExists = async (code, name) => {
+        const byCode = await findByCode(code)
+
+        if (byCode) {
+            if (byCode.name === name) {
+            return byCode
             } else {
-                console.log('Seller not found.');
-                return null; // Devuelve null si el vendedor no se encuentra
+                const updatedSeller = await updateName(byCode.id, name)
+                return byCode
             }
+        } else {
+            return false
         }
+    }
+
+
+const updateName = async (id, name) => {
+    const seller = await sellers.updateName(id, name)
+    return seller
+}
+
+    const importSeller = async (code, name) => {
+        // try {
+        //     const seller = await sellers.create(code, name);
+        //     // console.log('Newseller', seller);
+        //     return seller;
+        // } catch (error) {
+        //     const existingSeller = await sellers.findByCode(code);
+        //     if (existingSeller) {
+        //         console.log('ExistingSeller', existingSeller);
+        //         if (existingSeller.name !== name) {
+        //             const updatedSeller = await sellers.updateName(existingSeller.id, name);
+
+        //             console.log('UpdatedSeller', updatedSeller);
+        //             // return updatedSeller;
+        //             return existingSeller;
+        //         }
+        //         return existingSeller;
+        //     } else {
+        //         console.log('Seller not found.');
+        //         return null; // Devuelve null si el vendedor no se encuentra
+        //     }
+        // }
+
+        try {
+            const exist = await sellers.findByCode(code)
+            if (exist) {
+                return exist
+            } else {
+                const seller = await create(code, name)
+                console.log('New seller', seller)
+                return seller
+            }
+        } catch (error) {
+            console.log('Error', error)
+        }
+
+
+        // try {
+        //     const seller = await sellers.create(code, name);
+        //     // console.log('Newseller', seller);
+        //     return seller;
+        // } catch (error) {
+        //     const existingSeller = await sellers.findByName(name);
+        //     if (existingSeller) {
+        //         // console.log('ExistingSeller', existingSeller);
+        //         return existingSeller;
+        //     } else {
+        //         console.log('Seller not found.');
+        //         return null; // Devuelve null si el vendedor no se encuentra
+        //     }
+        // }
     };
 
     return {

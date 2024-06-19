@@ -55,6 +55,7 @@ export default function useImport() {
               customers.importCustomer(row.customer),
               products.importProduct(row.productCode, row.product),
             ]);
+            // const seller = await sellers.importSeller(row.sellerCode, row.seller);
 
             console.log("seller", seller);
             console.log("customer", customer);
